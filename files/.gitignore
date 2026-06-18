@@ -1,0 +1,34 @@
+# Environment / secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Streamlit
+.streamlit/
+
+# Whisper / model caches (CTranslate2 .bin files + legacy .pt)
+*.pt
+*.bin
+models/
+
+# TTS audio cache
+audio_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db
+
+# Notes (optional dev scratch)
+NOTES.md
