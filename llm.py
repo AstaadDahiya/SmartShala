@@ -106,12 +106,12 @@ def _gemini_generate(user_prompt: str, system_prompt: str, max_tokens: int) -> s
 
     # Models to try in order (fallback chain)
     models = [
-        ("gemini-2.5-flash", True),    # (model_name, supports_thinking)
-        ("gemini-2.0-flash-lite", False),
+        "gemini-2.5-flash",
+        "gemini-2.0-flash-lite",
     ]
 
     last_error = None
-    for model_name, supports_thinking in models:
+    for model_name in models:
         for attempt in range(3):
             try:
                 logger.debug(f"LLM: trying {model_name} (attempt {attempt + 1})")
@@ -122,10 +122,6 @@ def _gemini_generate(user_prompt: str, system_prompt: str, max_tokens: int) -> s
                     "temperature": 0.7,
                     "response_mime_type": "application/json",
                 }
-                if supports_thinking:
-                    config_kwargs["thinking_config"] = types.ThinkingConfig(
-                        thinking_budget=0,
-                    )
 
                 response = client.models.generate_content(
                     model=model_name,
