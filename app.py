@@ -693,6 +693,311 @@ header { visibility: hidden; }
     .quiz-option-text { font-size: 1.15rem; }
     .key-point-text { font-size: 1.1rem; }
 }
+
+/* ── Dark Mode Overrides ───────────────────────────────────── */
+body.dark-mode .stApp {
+    background: #0f172a !important;
+}
+body.dark-mode {
+    --primary: #6366f1;
+    --primary-light: rgba(99, 102, 241, 0.1);
+    --primary-border: rgba(99, 102, 241, 0.25);
+    --primary-hover: #818cf8;
+
+    --success: #34d399;
+    --success-light: rgba(52, 211, 153, 0.08);
+    --success-border: rgba(52, 211, 153, 0.2);
+
+    --warning: #fbbf24;
+    --warning-light: rgba(251, 191, 36, 0.08);
+    --warning-border: rgba(251, 191, 36, 0.2);
+
+    --error: #f87171;
+    --error-light: rgba(248, 113, 113, 0.08);
+    --error-border: rgba(248, 113, 113, 0.2);
+
+    --gray-900: #f1f5f9;
+    --gray-700: #cbd5e1;
+    --gray-500: #94a3b8;
+    --gray-400: #64748b;
+    --gray-300: #334155;
+    --gray-200: #1e293b;
+    --gray-100: #1e293b;
+    --gray-50: #0f172a;
+    --white: #0f172a;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.5);
+}
+body.dark-mode .content-card {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+body.dark-mode .content-card::before {
+    background: #6366f1;
+}
+body.dark-mode .quiz-option {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+body.dark-mode .quiz-option:hover {
+    background: #283548 !important;
+    border-color: #475569 !important;
+}
+body.dark-mode .stTextInput > div > div > input {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #f1f5f9 !important;
+}
+body.dark-mode .stTextInput > div > div > input:focus {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+}
+body.dark-mode .stButton > button {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    color: #cbd5e1 !important;
+}
+body.dark-mode .stButton > button:hover {
+    background: #283548 !important;
+    border-color: #475569 !important;
+}
+body.dark-mode .stButton > button[kind="primary"] {
+    background: #6366f1 !important;
+    border-color: #6366f1 !important;
+    color: white !important;
+}
+body.dark-mode .stButton > button[kind="primary"]:hover {
+    background: #818cf8 !important;
+    border-color: #818cf8 !important;
+}
+body.dark-mode section[data-testid="stSidebar"] {
+    background: #1e293b !important;
+    border-right-color: #334155 !important;
+}
+body.dark-mode .feature-item {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+body.dark-mode .app-footer {
+    border-top-color: #1e293b !important;
+}
+body.dark-mode .footer-brand {
+    color: #64748b !important;
+}
+body.dark-mode .footer-tagline {
+    color: #475569 !important;
+}
+body.dark-mode .stProgress > div > div {
+    background: #1e293b !important;
+}
+body.dark-mode .stProgress > div > div > div {
+    background: #6366f1 !important;
+}
+/* Dark mode — explicit text color overrides (CSS vars don't cascade in Streamlit) */
+body.dark-mode .brand-title {
+    color: #f1f5f9 !important;
+}
+body.dark-mode .brand-tagline {
+    color: #94a3b8 !important;
+}
+body.dark-mode .brand-divider {
+    background: #6366f1 !important;
+}
+body.dark-mode .class-badge {
+    background: rgba(99, 102, 241, 0.1) !important;
+    color: #a5b4fc !important;
+    border-color: rgba(99, 102, 241, 0.25) !important;
+}
+body.dark-mode .status-ready {
+    background: rgba(52, 211, 153, 0.08) !important;
+    color: #34d399 !important;
+    border-color: rgba(52, 211, 153, 0.2) !important;
+}
+body.dark-mode .status-dot-ready {
+    background: #34d399 !important;
+}
+body.dark-mode .voice-label {
+    color: #cbd5e1 !important;
+}
+body.dark-mode .voice-hint {
+    color: #64748b !important;
+}
+body.dark-mode .section-divider {
+    background: #1e293b !important;
+}
+body.dark-mode .text-input-label {
+    color: #94a3b8 !important;
+}
+body.dark-mode .transcript-card {
+    background: rgba(30, 41, 59, 0.5) !important;
+    border-color: #334155 !important;
+    border-left-color: #6366f1 !important;
+}
+body.dark-mode .transcript-label {
+    color: #64748b !important;
+}
+body.dark-mode .transcript-text {
+    color: #cbd5e1 !important;
+}
+body.dark-mode .explain-icon {
+    background: rgba(99, 102, 241, 0.1) !important;
+    border-color: rgba(99, 102, 241, 0.25) !important;
+}
+body.dark-mode .explain-topic {
+    color: #f1f5f9 !important;
+}
+body.dark-mode .explain-body {
+    color: #cbd5e1 !important;
+}
+body.dark-mode .key-points-header {
+    color: #64748b !important;
+}
+body.dark-mode .key-point-item {
+    background: rgba(30, 41, 59, 0.5) !important;
+    border-color: #334155 !important;
+}
+body.dark-mode .key-point-item:hover {
+    background: rgba(99, 102, 241, 0.08) !important;
+    border-color: rgba(99, 102, 241, 0.2) !important;
+}
+body.dark-mode .key-point-num {
+    background: #6366f1 !important;
+}
+body.dark-mode .key-point-text {
+    color: #cbd5e1 !important;
+}
+body.dark-mode .quiz-topic-label {
+    color: #64748b !important;
+}
+body.dark-mode .quiz-progress-badge {
+    background: rgba(99, 102, 241, 0.1) !important;
+    color: #a5b4fc !important;
+    border-color: rgba(99, 102, 241, 0.25) !important;
+}
+body.dark-mode .quiz-question-text {
+    color: #f1f5f9 !important;
+}
+body.dark-mode .quiz-option-label {
+    background: #334155 !important;
+    color: #94a3b8 !important;
+    border-color: #475569 !important;
+}
+body.dark-mode .quiz-option-text {
+    color: #cbd5e1 !important;
+}
+body.dark-mode .quiz-answer-card {
+    background: rgba(52, 211, 153, 0.06) !important;
+    border-color: rgba(52, 211, 153, 0.15) !important;
+}
+body.dark-mode .quiz-answer-label {
+    color: #34d399 !important;
+}
+body.dark-mode .quiz-answer-text {
+    color: #34d399 !important;
+}
+body.dark-mode .quiz-explanation-text {
+    color: #cbd5e1 !important;
+}
+body.dark-mode .info-card-clarify {
+    background: rgba(251, 191, 36, 0.06) !important;
+    border-color: rgba(251, 191, 36, 0.15) !important;
+    color: #fbbf24 !important;
+}
+body.dark-mode .info-card-error {
+    background: rgba(248, 113, 113, 0.06) !important;
+    border-color: rgba(248, 113, 113, 0.15) !important;
+    color: #f87171 !important;
+}
+body.dark-mode .info-card-offtopic {
+    background: rgba(251, 146, 60, 0.06) !important;
+    border-color: rgba(251, 146, 60, 0.15) !important;
+    color: #fb923c !important;
+}
+body.dark-mode .audio-section {
+    background: rgba(30, 41, 59, 0.5) !important;
+    border-color: #334155 !important;
+}
+body.dark-mode .audio-icon {
+    background: rgba(99, 102, 241, 0.1) !important;
+}
+body.dark-mode .stTextInput label {
+    color: #94a3b8 !important;
+}
+body.dark-mode .stAudioInput > label {
+    color: #94a3b8 !important;
+}
+/* Dark mode — Streamlit native widget overrides */
+body.dark-mode .stAudioInput > div {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+}
+body.dark-mode .stAudioInput > div > div {
+    background: #1e293b !important;
+}
+body.dark-mode [data-testid="stAudioInput"] {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+    border-radius: 10px !important;
+}
+body.dark-mode [data-testid="stAudioInput"] > div {
+    background: #1e293b !important;
+}
+body.dark-mode .stMarkdown p,
+body.dark-mode .stMarkdown span {
+    color: #cbd5e1 !important;
+}
+body.dark-mode .stMarkdown strong {
+    color: #f1f5f9 !important;
+}
+body.dark-mode .stMarkdown h1,
+body.dark-mode .stMarkdown h2,
+body.dark-mode .stMarkdown h3 {
+    color: #f1f5f9 !important;
+}
+body.dark-mode hr {
+    border-color: #1e293b !important;
+    background: #1e293b !important;
+}
+body.dark-mode [data-testid="stHorizontalBlock"] {
+    gap: 0.5rem;
+}
+/* Audio recorder specific overrides */
+body.dark-mode audio {
+    filter: invert(0.85) hue-rotate(180deg);
+}
+body.dark-mode [data-testid="stAudio"] > div {
+    background: #1e293b !important;
+    border-radius: 10px;
+}
+/* Dark mode toggle button */
+.theme-toggle-container {
+    position: fixed;
+    top: 14px;
+    right: 20px;
+    z-index: 999999;
+}
+.theme-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
+    font-size: 0.78rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    border: 1px solid var(--gray-200);
+    background: var(--gray-50);
+    color: var(--gray-500);
+    transition: all 0.15s ease;
+    box-shadow: var(--shadow-sm);
+}
+.theme-toggle-btn:hover {
+    border-color: var(--gray-300);
+    box-shadow: var(--shadow-md);
+}
 </style>
 """,
     unsafe_allow_html=True,
@@ -716,6 +1021,8 @@ _defaults = {
     "error_message": None,
     "off_topic": False,
 }
+if "dark_mode" not in st.session_state:
+    st.session_state.dark_mode = False
 for _k, _v in _defaults.items():
     if _k not in st.session_state:
         st.session_state[_k] = _v
@@ -841,6 +1148,30 @@ def process_input(transcript: str) -> None:
 # ═══════════════════════════════════════════════════════════════
 #  UI LAYOUT
 # ═══════════════════════════════════════════════════════════════
+
+# ── Dark/Light Mode Toggle + Apply ────────────────────────────
+toggle_col1, toggle_col2 = st.columns([6, 1])
+with toggle_col2:
+    if st.button(
+        "🌙 Dark" if not st.session_state.dark_mode else "☀️ Light",
+        key="theme_toggle",
+        use_container_width=True,
+    ):
+        st.session_state.dark_mode = not st.session_state.dark_mode
+        st.rerun()
+
+# Apply dark mode class via JS (components.html reliably executes JS)
+import streamlit.components.v1 as components
+if st.session_state.dark_mode:
+    components.html(
+        '<script>window.parent.document.body.classList.add("dark-mode");</script>',
+        height=0,
+    )
+else:
+    components.html(
+        '<script>window.parent.document.body.classList.remove("dark-mode");</script>',
+        height=0,
+    )
 
 # ── Header / Branding ──────────────────────────────────────────
 st.markdown(
