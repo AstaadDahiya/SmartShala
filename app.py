@@ -971,6 +971,20 @@ body.dark-mode [data-testid="stAudio"] > div {
     background: #1e293b !important;
     border-radius: 10px;
 }
+body.dark-mode [data-testid="stAudioInput"] div {
+    color: #f1f5f9 !important;
+}
+/* Placeholder text color */
+body.dark-mode ::placeholder {
+    color: #64748b !important;
+    opacity: 1 !important;
+}
+body.dark-mode :-ms-input-placeholder {
+    color: #64748b !important;
+}
+body.dark-mode ::-ms-input-placeholder {
+    color: #64748b !important;
+}
 /* Dark mode toggle button */
 .theme-toggle-container {
     position: fixed;
