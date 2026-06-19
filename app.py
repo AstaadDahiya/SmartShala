@@ -1488,7 +1488,10 @@ if st.session_state.tts_audio:
         "</div>",
         unsafe_allow_html=True,
     )
-    st.audio(st.session_state.tts_audio, format="audio/mp3", autoplay=True)
+    # Auto-detect format: WAV starts with b'RIFF', MP3 with b'\xff\xfb' or b'ID3'
+    audio_data = st.session_state.tts_audio
+    audio_format = "audio/wav" if audio_data[:4] == b"RIFF" else "audio/mp3"
+    st.audio(audio_data, format=audio_format, autoplay=True)
 
 
 # ═══════════════════════════════════════════════════════════════
