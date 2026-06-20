@@ -1029,6 +1029,7 @@ _defaults = {
     "quiz_data": None,
     "quiz_index": 0,
     "show_answer": False,
+    "selected_option": None,
     "tts_audio": None,
     "last_audio_hash": None,
     "last_text_input": "",
@@ -1088,6 +1089,7 @@ def process_input(transcript: str) -> None:
     st.session_state.quiz_data = None
     st.session_state.quiz_index = 0
     st.session_state.show_answer = False
+    st.session_state.selected_option = None
     st.session_state.tts_audio = None
     st.session_state.error_message = None
     st.session_state.off_topic = False
@@ -1364,79 +1366,97 @@ if st.session_state.quiz_data:
     idx = st.session_state.quiz_index
     q = quiz.questions[idx]
     total = len(quiz.questions)
+    answered = st.session_state.show_answer
+    selected = st.session_state.selected_option
 
     st.markdown('<hr class="section-divider">', unsafe_allow_html=True)
 
-    # Build options HTML
-    options_html = ""
-    for i, opt in enumerate(q.options):
-        label = chr(65 + i)
-        if st.session_state.show_answer:
-            if i == q.correct_index:
-                css = "quiz-option quiz-option-correct"
-            else:
-                css = "quiz-option quiz-option-wrong"
-        else:
-            css = "quiz-option"
-        options_html += (
-            f'<div class="{css}">'
-            f'<div class="quiz-option-label">{label}</div>'
-            f'<div class="quiz-option-text">{opt}</div>'
-            f"</div>"
-        )
-
+    # Quiz header card (topic + question)
     st.markdown(
         '<div class="content-card">'
-        # Header bar
         '<div class="quiz-header-bar">'
         f'<div class="quiz-topic-label">📝 {quiz.topic}</div>'
         f'<div class="quiz-progress-badge">Sawal {idx + 1} / {total}</div>'
         "</div>"
-        + f'<div class="quiz-question-text">{q.question}</div>'
-        + options_html
-        + "</div>",
+        f'<div class="quiz-question-text">{q.question}</div>'
+        "</div>",
         unsafe_allow_html=True,
     )
+
+    # Clickable option buttons
+    for i, opt in enumerate(q.options):
+        label = chr(65 + i)
+        if answered:
+            # After answering: show correct/wrong styling
+            if i == q.correct_index:
+                btn_type = "primary" if selected == i else "primary"
+                icon = "✅"
+            elif i == selected:
+                btn_type = "secondary"
+                icon = "❌"
+            else:
+                btn_type = "secondary"
+                icon = ""
+            st.button(
+                f"{label}) {opt} {icon}",
+                key=f"quiz_opt_{idx}_{i}",
+                use_container_width=True,
+                type=btn_type if i == q.correct_index else "secondary",
+                disabled=True,
+            )
+        else:
+            # Before answering: clickable options
+            if st.button(
+                f"{label}) {opt}",
+                key=f"quiz_opt_{idx}_{i}",
+                use_container_width=True,
+            ):
+                st.session_state.selected_option = i
+                st.session_state.show_answer = True
+                # TTS feedback
+                try:
+                    if i == q.correct_index:
+                        tts_text = f"Bilkul sahi! {q.explanation}"
+                    else:
+                        tts_text = (
+                            f"Galat jawab. Sahi jawab hai {chr(65 + q.correct_index)}: "
+                            f"{q.options[q.correct_index]}. {q.explanation}"
+                        )
+                    st.session_state.tts_audio = speak(tts_text)
+                except Exception:
+                    pass
+                st.rerun()
 
     # Progress bar
     st.progress((idx + 1) / total)
 
-    # Answer + explanation
-    if st.session_state.show_answer:
+    # Answer explanation card (shown after selecting)
+    if answered:
         correct_label = chr(65 + q.correct_index)
         correct_text = q.options[q.correct_index]
+        if selected == q.correct_index:
+            result_icon = "🎉"
+            result_text = "Bahut acche! Sahi jawab!"
+        else:
+            result_icon = "📖"
+            result_text = f"Sahi jawab hai {correct_label}) {correct_text}"
         st.markdown(
             '<div class="quiz-answer-card">'
-            '<div class="quiz-answer-label">✅ Sahi Jawab</div>'
-            f'<div class="quiz-answer-text">{correct_label}) {correct_text}</div>'
+            f'<div class="quiz-answer-label">{result_icon} {result_text}</div>'
             f'<div class="quiz-explanation-text">💡 {q.explanation}</div>'
             "</div>",
             unsafe_allow_html=True,
         )
 
     # Navigation buttons
-    btn_cols = st.columns(3)
+    nav_cols = st.columns(2)
 
-    with btn_cols[0]:
-        if not st.session_state.show_answer:
-            if st.button("👀 Jawab Dikhao", use_container_width=True):
-                st.session_state.show_answer = True
-                # TTS for answer
-                try:
-                    tts_text = (
-                        f"Sahi jawab hai: {q.options[q.correct_index]}. "
-                        f"{q.explanation}"
-                    )
-                    st.session_state.tts_audio = speak(tts_text)
-                except Exception:
-                    pass
-                st.rerun()
-
-    with btn_cols[1]:
-        if idx < total - 1:
+    with nav_cols[0]:
+        if answered and idx < total - 1:
             if st.button("➡️ Agla Sawal", use_container_width=True):
                 st.session_state.quiz_index = idx + 1
                 st.session_state.show_answer = False
+                st.session_state.selected_option = None
                 # TTS for next question
                 nq = quiz.questions[idx + 1]
                 try:
@@ -1451,13 +1471,14 @@ if st.session_state.quiz_data:
                 except Exception:
                     pass
                 st.rerun()
-        elif st.session_state.show_answer:
+        elif answered and idx == total - 1:
             st.markdown("🎉 **Quiz complete! Bahut acche!**")
 
-    with btn_cols[2]:
+    with nav_cols[1]:
         if st.button("🔄 Phir se shuru", use_container_width=True):
             st.session_state.quiz_index = 0
             st.session_state.show_answer = False
+            st.session_state.selected_option = None
             # TTS for first question again
             fq = quiz.questions[0]
             try:
